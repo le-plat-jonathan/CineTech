@@ -13,8 +13,8 @@
 .caroussel-item-movie,
 .caroussel-item-serie {
     flex: 0 0 auto;
-    width: 12%;
-    height: 16rem;
+    width: 20%;
+    height: 24rem;
     margin-right: 1rem;
     scroll-snap-align: start;
     background-size: cover;
@@ -60,11 +60,15 @@
     right: 1rem;
 }
 
-
-main {
-    background: gray;
-}
-
 #navbarScroll {
     transition: background-color .7s ease;
+}
+
+.film {
+    position: absolute;
+    left: 3.2%;
+    margin-top: 0rem;
+    z-index: 500;
+    text-decoration: underline;
+    font-weight: bold;
 }

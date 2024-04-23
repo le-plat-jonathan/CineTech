@@ -17,7 +17,7 @@ const fetchApiMovie = async () => {
         carousselItem.classList.add('caroussel-item-movie');
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.poster_path})`;
         carousselItem.innerHTML = `
-          <h1 class='movieTitle'>${movie.title}</h1>
+        
         `;
         carousselContainer.appendChild(carousselItem);
       });
@@ -44,7 +44,7 @@ const fetchApiSeries = async () => {
         carousselItem.classList.add('caroussel-item-serie');
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${serie.poster_path})`;
         carousselItem.innerHTML = `
-          <h1 class='movieTitle'>${serie.title}</h1>
+        
         `;
         carousselSeriesContainer.appendChild(carousselItem);
       });
