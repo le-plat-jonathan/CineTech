@@ -7,21 +7,55 @@ nav{
 .carousel {
     position: relative;
     overflow: hidden;
-  }
+    margin: 0 2rem 0 2rem;
+}
   
-  .carousel-inner {
+.carousel-inner {
     display: flex;
     transition: transform 0.5s ease;
-  }
+}
   
-  .movie {
+.movie {
+    display: flex;
+    justify-content: center;
+    align-items: end;
     flex: 0 0 auto;
     width: 25%;
     height: 12rem;
     margin-right: 1rem;
     border-radius: 1rem;
     background-size: cover;
-  }
+    padding: 1rem;
+    font-family: "netflix";
+    box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
+}
+
+.divDescription{
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    flex-direction: column;
+    width: 100%;
+    height: 7rem;
+    color: white;
+}
+
+.genres{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.genres span{
+    border-radius: 2rem;
+    border: red solid 0.1rem;
+    background-color: #000000;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    font-size: 0.5rem;
+}
   
   .prev-btn,
   .next-btn {

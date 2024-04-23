@@ -4,6 +4,7 @@ const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
 const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 const apiDeleteSession = 'https://api.themoviedb.org/3/authentication/session?api_key=' + apiKey;
 const apiToken = 'https://api.themoviedb.org/3/authentication/token/new' + apiKey;
+const apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
 
 const token = localStorage.getItem('token');
 const logOutBtn = document.getElementById('logOut');
@@ -25,6 +26,21 @@ const fetchApiTv = async () => {
       const response = await fetch(apiTv);
       const data = await response.json();
       console.log(data);
+  } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+  }
+};
+
+const fetchApiMovieGenre = async () => {
+  try {
+      const response = await fetch(apiMovieGenre);
+      const data = await response.json();
+      const genres = data.genres;
+            const genresMap = {};
+            genres.forEach(genre => {
+                genresMap[genre.id] = genre.name;
+            });
+        return genresMap;
   } catch (error) {
       console.error('Une erreur s\'est produite', error);
   }

@@ -5,3 +5,9 @@
     list-style-type: none;
     text-decoration: none;
   }
+
+
+@font-face {
+    font-family: "netflix";
+    src: url("font/NetflixSans-Regular.woff2") format("woff2");
+}
