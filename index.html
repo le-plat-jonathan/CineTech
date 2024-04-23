@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineTech</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-<body>
-    <nav id="navbar">
-        <a id="guest">Guest</a>
-        <a id="logOut">Déconnexion</a>
-    </nav>
-    <hero id="heroBanner">
+<html lang="en">
 
-    </hero>
+<head>
+    <meta charset="utf-8" />
+    <title>CineTech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <nav>
+        <a id="guest">Guest</a>
+        <a id="logOut">Déconnexion</a>  
+    </nav>
     <main>
-        
+        <div id="caroussel-container-movie">
+            <button id="movie-prev" class="caroussel-movie-nav-btn"><i class="ri-arrow-left-circle-fill"></i></button>
+            <button id="movie-next" class="caroussel-movie-nav-btn"><i class="ri-arrow-right-circle-fill"></i></button>
+        </div>
+        <div id="caroussel-container-series">
+            <button id="series-prev" class="caroussel-serie-nav-btn"><i class="ri-arrow-left-circle-fill"></i></button>
+            <button id="series-next" class="caroussel-serie-nav-btn"><i class="ri-arrow-right-circle-fill"></i></button>
+        </div>
     </main>
 </body>
+
 </html>
