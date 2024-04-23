@@ -3,7 +3,10 @@ const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey
 const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
 const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 const apiDeleteSession = 'https://api.themoviedb.org/3/authentication/session?api_key=' + apiKey;
+
 const token = localStorage.getItem('token');
+const logOutBtn = document.getElementById('logOut');
+const guest = document.getElementById('guest');
 
 const fetchApiMovie = async () => {
   try {
@@ -27,8 +30,9 @@ const fetchApiTv = async () => {
 
 fetchApiMovie();
 fetchApiTv();
+displayBtn();
 
-const guest = document.getElementById('guest');
+// --------------------------------------- Log In--------------------------------------- //
 
 guest.addEventListener('click', async function() {
   try {
@@ -36,16 +40,28 @@ guest.addEventListener('click', async function() {
     const data = await response.json();
     localStorage.setItem('token', data.guest_session_id);
     console.log(data);
-} catch (error) {
-    console.error('Une erreur s\'est produite', error);
-}
+    displayBtn();
+  } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+  }
 });
 
+// --------------------------------------- Log Out --------------------------------------- //
 
+logOutBtn.addEventListener('click', function() {
+  localStorage.removeItem('token');
+  displayBtn();
+})
 
+// --------------------------------------- Display Btn --------------------------------------- //
 
-
-
-
-
-
+function displayBtn() {
+  const token = localStorage.getItem('token');
+  if(token) {
+    guest.style.display = 'none';
+    logOutBtn.style.display = 'block';
+  } else {
+    guest.style.display = 'block';
+    logOutBtn.style.display = 'none';
+  }
+}

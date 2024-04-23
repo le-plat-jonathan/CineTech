@@ -13,4 +13,10 @@
 
 #guest:hover {
     cursor: pointer;
+    color: blue;
+}
+
+#logOut:hover {
+    cursor: pointer;
+    color: blue;
 }
