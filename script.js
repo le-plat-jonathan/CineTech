@@ -1,7 +1,27 @@
+const myList = document.getElementById('myList');
+const guest_logOut = document.getElementById('guest_logOut');
+const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
+
+// --------------------------------------- Display Btn --------------------------------------- //
+
+function displayBtn() {
+  const token = localStorage.getItem('token');
+  if(token) {
+    myList.style.display = 'block';
+    guest_logOut.textContent = 'Déconnexion';
+  } else {
+    myList.style.display = 'none';
+    guest_logOut.textContent = 'Connexion';
+  }
+}
+
 displayBtn();
+
 // --------------------------------------- Log In--------------------------------------- //
 
-guest.addEventListener('click', async function() {
+guest_logOut.addEventListener('click', async () => {
+  const token = localStorage.getItem('token');
+  if(!token) {
     try {
       const response = await fetch(apiGuestSession);
       const data = await response.json();
@@ -11,24 +31,9 @@ guest.addEventListener('click', async function() {
     } catch (error) {
         console.error('Une erreur s\'est produite', error);
     }
-  });
-  
-  // --------------------------------------- Log Out --------------------------------------- //
-  
-  logOutBtn.addEventListener('click', function() {
+  } else {
     localStorage.removeItem('token');
-    displayBtn();
-  })
-  
-  // --------------------------------------- Display Btn --------------------------------------- //
-  
-  function displayBtn() {
-    const token = localStorage.getItem('token');
-    if(token) {
-      guest.style.display = 'none';
-      logOutBtn.style.display = 'block';
-    } else {
-      guest.style.display = 'block';
-      logOutBtn.style.display = 'none';
-    }
+  displayBtn();
   }
+});
+

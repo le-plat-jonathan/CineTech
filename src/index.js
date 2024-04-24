@@ -1,6 +1,7 @@
 const apiKey = '8c4b867188ee47a1d4e40854b27391ec';
 const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey;
 const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
+const apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
 
 const fetchApiMovie = async () => {
   try {
@@ -9,16 +10,23 @@ const fetchApiMovie = async () => {
     
     if (data && data.results) {
       const movies = data.results;
-      const randomMovies = getRandom(movies, 20);
+      const genresMap = await fetchApiMovieGenre();
       const carousselContainer = document.getElementById('caroussel-container-movie');
       
-      randomMovies.forEach(movie => {
+      movies.forEach(movie => {
         const carousselItem = document.createElement('div');
         carousselItem.classList.add('caroussel-item-movie');
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
         carousselItem.innerHTML = `
-        <h2 class="movieTitle">${movie.title}</h2>
-        <span class="releaseDate">Sortie le: ${movie.release_date}</span>
+        <h3 class="movieTitle">${movie.title}</h3>
+          <div class="overlay"></div>
+          <div class="movie-info">
+            <h3>${movie.title}</h3>
+            <p class="releaseDate">Date de sortie: ${movie.release_date}</p>
+            <p class="genres">${
+              movie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
+            }</p>
+          </div>
         `;
         carousselContainer.appendChild(carousselItem);
       });
@@ -34,7 +42,7 @@ const fetchApiSeries = async () => {
   try {
     const response = await fetch(apiTv);
     const data = await response.json();
-    
+    console.log(data);
     if (data && data.results) {
       const series = data.results;
       const randomSeries = getRandom(series, 20);
@@ -46,6 +54,10 @@ const fetchApiSeries = async () => {
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${serie.backdrop_path})`;
         carousselItem.innerHTML = `
         <h2 class="movieTitle">${serie.name}</h2>
+        <div class="overlay"></div>
+        <div class="movie-info">
+            <p class="releaseDate">Date de sorie: ${serie.first_air_date}</p>
+        </div>
         `;
         carousselSeriesContainer.appendChild(carousselItem);
       });
@@ -166,15 +178,17 @@ window.addEventListener('load', function(){
   }
 })
 
-
-const fetchApiMovies = async () => {
+const fetchApiMovieGenre = async () => {
   try {
-      const response = await fetch(apiMovie);
+      const response = await fetch(apiMovieGenre);
       const data = await response.json();
-      console.log(data);
+      const genres = data.genres;
+            const genresMap = {};
+            genres.forEach(genre => {
+                genresMap[genre.id] = genre.name;
+            });
+        return genresMap;
   } catch (error) {
       console.error('Une erreur s\'est produite', error);
   }
 };
-
-fetchApiMovies();
