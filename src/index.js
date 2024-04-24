@@ -15,9 +15,10 @@ const fetchApiMovie = async () => {
       randomMovies.forEach(movie => {
         const carousselItem = document.createElement('div');
         carousselItem.classList.add('caroussel-item-movie');
-        carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.poster_path})`;
+        carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
         carousselItem.innerHTML = `
-        
+        <h2 class="movieTitle">${movie.title}</h2>
+        <span class="releaseDate">Sortie le: ${movie.release_date}</span>
         `;
         carousselContainer.appendChild(carousselItem);
       });
@@ -42,9 +43,9 @@ const fetchApiSeries = async () => {
       randomSeries.forEach(serie => {
         const carousselItem = document.createElement('div');
         carousselItem.classList.add('caroussel-item-serie');
-        carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${serie.poster_path})`;
+        carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${serie.backdrop_path})`;
         carousselItem.innerHTML = `
-        
+        <h2 class="movieTitle">${serie.name}</h2>
         `;
         carousselSeriesContainer.appendChild(carousselItem);
       });
@@ -155,3 +156,25 @@ window.addEventListener('scroll', function() {
       navbar.classList.add('bg-black');
   }
 });
+
+window.addEventListener('load', function(){
+  let navbar = document.getElementById('navbarScroll');
+  if (window.scrollY === 0) {
+      navbar.classList.remove('bg-black');
+  } else {
+      navbar.classList.add('bg-black');
+  }
+})
+
+
+const fetchApiMovies = async () => {
+  try {
+      const response = await fetch(apiMovie);
+      const data = await response.json();
+      console.log(data);
+  } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+  }
+};
+
+fetchApiMovies();
