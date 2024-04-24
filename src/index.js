@@ -98,14 +98,30 @@ const fetchApiMovie = async () => {
   }
 };
 
+const fetchApiMovieGenre = async () => {
+  try {
+      const response = await fetch(apiMovieGenre);
+      const data = await response.json();
+      const genres = data.genres;
+            const genresMap = {};
+            genres.forEach(genre => {
+                genresMap[genre.id] = genre.name;
+            });
+        return genresMap;
+  } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+  }
+};
+
 const fetchApiSeries = async () => {
   try {
     const response = await fetch(apiTv);
     const data = await response.json();
-    console.log(data);
+    
     if (data && data.results) {
       const series = data.results;
       const randomSeries = getRandom(series, 20);
+      const genresMap = await fetchApiSeriesGenre();
       const carousselSeriesContainer = document.getElementById('caroussel-container-series');
       
       randomSeries.forEach(serie => {
@@ -116,7 +132,11 @@ const fetchApiSeries = async () => {
         <h2 class="movieTitle">${serie.name}</h2>
         <div class="overlay"></div>
         <div class="movie-info">
-            <p class="releaseDate">Date de sorie: ${serie.first_air_date}</p>
+          <h2>${serie.name}</h2>
+          <p class="releaseDate">Date de sortie: ${serie.first_air_date}</p>
+          <p class="genres">${
+            serie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
+          }</p> <!-- Affichage des genres -->
         </div>
         `;
         carousselSeriesContainer.appendChild(carousselItem);
@@ -128,6 +148,22 @@ const fetchApiSeries = async () => {
     console.error('Une erreur s\'est produite', error);
   }
 };
+
+const fetchApiSeriesGenre = async () => {
+  try {
+    const response = await fetch(apiMovieGenre);
+    const data = await response.json();
+    const genres = data.genres;
+    const genresMap = {};
+    genres.forEach(genre => {
+      genresMap[genre.id] = genre.name;
+    });
+    return genresMap;
+  } catch (error) {
+    console.error('Une erreur s\'est produite', error);
+  }
+};
+
 
 const getRandom = (arr, num) => {
   const result = [];
@@ -208,21 +244,6 @@ window.addEventListener('load', function(){
       navbar.classList.add('bg-black');
   }
 })
-
-const fetchApiMovieGenre = async () => {
-  try {
-      const response = await fetch(apiMovieGenre);
-      const data = await response.json();
-      const genres = data.genres;
-            const genresMap = {};
-            genres.forEach(genre => {
-                genresMap[genre.id] = genre.name;
-            });
-        return genresMap;
-  } catch (error) {
-      console.error('Une erreur s\'est produite', error);
-  }
-};
 
 // --------------------------------------- Display Btn --------------------------------------- //
 
