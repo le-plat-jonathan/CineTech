@@ -1,0 +1,84 @@
+#caroussel-container-movie,
+#caroussel-container-series {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2rem;
+    margin: 0rem 3rem 0rem 3rem;
+}
+
+.caroussel-item-movie,
+.caroussel-item-serie {
+    flex: 0 0 auto;
+    width: 30%;
+    height: 15rem;
+    margin-right: 1rem;
+    scroll-snap-align: start;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
+}
+
+.caroussel-item-movie:hover,
+.caroussel-item-serie:hover {
+    cursor: pointer;
+}
+
+.caroussel-movie-nav-btn,
+.caroussel-serie-nav-btn {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+#movie-prev, #series-prev {
+    left: 1rem;
+    color: white;
+}
+
+#movie-next, #series-next {
+    right: 1rem;
+    color: white;
+}
+
+#navbarScroll {
+    transition: background-color .7s ease;
+}
+
+.film {
+    position: absolute;
+    left: 5.5%;
+    margin-bottom: 1rem;
+    z-index: 500;
+    text-decoration: underline;
+    font-weight: bold;
+    color: white;
+}
+
+main {
+    background: black;
+    padding: 2rem;
+}
+
+.movieTitle {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    bottom: 20%;
+    left: 5%;
+}
+
+.releaseDate {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    bottom: 10%;
+    left: 7%;
+}
