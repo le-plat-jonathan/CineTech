@@ -6,19 +6,18 @@ nav{
 .carousel {
   position: relative;
   overflow: hidden;
-  margin: 0 2rem 0 2rem;
 }
 
 .carousel1 {
     position: relative;
     overflow: hidden;
-    margin: 0 2rem 0 2rem;
 }
   
 .carousel-inner {
     display: flex;
     transition: transform 0.5s ease;
     margin: 2rem 0 2rem 0;
+    height: 15rem;
 }
 
 .carousel-inner1 {
@@ -38,6 +37,15 @@ nav{
     padding: 1rem;
     font-family: "netflix";
     box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
+    transition: all 0.3s;
+}
+
+.movie:hover{
+  top: 0%;
+  left: 0%;
+  width: 30%;
+  height: 15rem;
+  transition: all 0.3s;
 }
 
 .divDescription{
@@ -66,17 +74,22 @@ nav{
     margin: 0.2rem;
     font-size: 0.5rem;
 }
+
+h2{
+  color: rgb(255, 255, 255);
+  font-size: 2rem !important;
+}
   
   .prev-btn,
   .next-btn {
     position: absolute;
     top: 27%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
     padding: 0.5rem;
     cursor: pointer;
+    font-size: 2rem
   }
   
   .prev-btn {

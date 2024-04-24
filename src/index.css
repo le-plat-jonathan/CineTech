@@ -10,6 +10,10 @@
     margin: 0rem 3rem 0rem 3rem;
 }
 
+#navbarScroll{
+    height: 4rem;
+}
+
 .caroussel-item-movie,
 .caroussel-item-serie {
     flex: 0 0 auto;
