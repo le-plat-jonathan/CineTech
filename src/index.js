@@ -2,8 +2,12 @@ const apiKey = '8c4b867188ee47a1d4e40854b27391ec';
 const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey;
 const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
 const apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
+const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 
+const myList = document.getElementById('myList');
+const guest_logOut = document.getElementById('guest_logOut');
 
+// _________________________________________Hero banner background video_________________________________________
 
 function loadPopularMedia() {
     
@@ -19,9 +23,7 @@ function loadPopularMedia() {
       .catch(error => console.error('Error fetching popular TV shows: ', error));
 }
 
-
 let trailers = [];
-
 
 async function loadTrailers(mediaItems, type) {
   const trailerPromises = mediaItems.slice(0, 50).map(item => {
@@ -41,7 +43,6 @@ async function loadTrailers(mediaItems, type) {
   displayRandomTrailer(); 
 }
 
-
 function displayRandomTrailer() {
   if (trailers.length > 0) {
       const randomIndex = Math.floor(Math.random() * trailers.length);
@@ -56,13 +57,11 @@ function displayRandomTrailer() {
   }
 }
 
-
 window.onload = function() {
   loadPopularMedia();
 };
 
-
-
+// _________________________________________Fetch Carousel Infos_________________________________________
 
 const fetchApiMovie = async () => {
   try {
@@ -145,36 +144,7 @@ const getRandom = (arr, num) => {
 window.addEventListener('load', fetchApiMovie);
 window.addEventListener('load', fetchApiSeries);
 
-
-const carousels = document.querySelectorAll('.caroussel-container');
-
-carousels.forEach(carousel => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    carousel.addEventListener('mousedown', (e) => {
-        isDown = true;
-        startX = e.pageX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
-    });
-
-    carousel.addEventListener('mouseleave', () => {
-        isDown = false;
-    });
-
-    carousel.addEventListener('mouseup', () => {
-        isDown = false;
-    });
-
-    carousel.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2;
-        carousel.scrollLeft = scrollLeft - walk;
-    });
-});
+// _________________________________________Carousel_________________________________________
 
 const movieCaroussel = document.getElementById('caroussel-container-movie');
 const seriesCaroussel = document.getElementById('caroussel-container-series');
@@ -253,3 +223,39 @@ const fetchApiMovieGenre = async () => {
       console.error('Une erreur s\'est produite', error);
   }
 };
+
+// --------------------------------------- Display Btn --------------------------------------- //
+
+function displayBtn() {
+  const token = localStorage.getItem('token');
+  if(token) {
+    myList.style.display = 'block';
+    guest_logOut.textContent = 'Déconnexion';
+  } else {
+    myList.style.display = 'none';
+    guest_logOut.textContent = 'Connexion';
+  }
+}
+
+displayBtn();
+
+// --------------------------------------- Log In & Out--------------------------------------- //
+
+guest_logOut.addEventListener('click', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    try {
+      const response = await fetch(apiGuestSession);
+      const data = await response.json();
+      console.log(data);
+      localStorage.setItem('token', data.guest_session_id);
+      displayBtn();
+    } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+    }
+  } else {
+    localStorage.removeItem('token');
+    displayBtn();
+  }
+});
+
