@@ -3,8 +3,13 @@ nav{
     width: 100%;
     background-color: aqua
 }
-
 .carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 0 2rem 0 2rem;
+}
+
+.carousel1 {
     position: relative;
     overflow: hidden;
     margin: 0 2rem 0 2rem;
@@ -13,6 +18,12 @@ nav{
 .carousel-inner {
     display: flex;
     transition: transform 0.5s ease;
+    margin: 2rem 0 2rem 0;
+}
+
+.carousel-inner1 {
+  display: flex;
+  transition: transform 0.5s ease;
 }
   
 .movie {
@@ -23,7 +34,6 @@ nav{
     width: 25%;
     height: 12rem;
     margin-right: 1rem;
-    border-radius: 1rem;
     background-size: cover;
     padding: 1rem;
     font-family: "netflix";
@@ -60,7 +70,7 @@ nav{
   .prev-btn,
   .next-btn {
     position: absolute;
-    top: 50%;
+    top: 27%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
@@ -74,5 +84,25 @@ nav{
   }
   
   .next-btn {
+    right: 0;
+  }
+
+  .prev-btn1,
+  .next-btn1 {
+    position: absolute;
+    top: 79%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .prev-btn1 {
+    left: 0;
+  }
+  
+  .next-btn1 {
     right: 0;
   }

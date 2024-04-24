@@ -1,6 +1,9 @@
 const carouselInner = document.querySelector(".carousel-inner");
+const carouselInner1 = document.querySelector(".carousel-inner1");
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
+const prevBtn1 = document.querySelector(".prev-btn1");
+const nextBtn1 = document.querySelector(".next-btn1");
 
 async function fetchDataMovie() {
     try {
@@ -24,7 +27,7 @@ async function fetchDataMovie() {
             console.log(genreIds);
 
             if(index > -1){
-                const movie = document.createElement("div")
+                const movie = document.createElement("div");
                 movie.className = "movie";
                 movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
                 const divDescription = document.createElement("div");
@@ -46,6 +49,30 @@ async function fetchDataMovie() {
                 divDescription.appendChild(title);
                 divDescription.appendChild(genresContainer);
             }
+
+            if(index > -1){
+                const movie = document.createElement("div");
+                movie.className = "movie";
+                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
+                const divDescription = document.createElement("div");
+                divDescription.className = "divDescription";
+                const title = document.createElement("h4");
+                title.textContent = originalTitle;
+                const genresContainer = document.createElement("div");
+                genresContainer.className = "genres";
+                genreIds.forEach(genreId => {
+                    const genreName = genresMap[genreId];
+                    if (genreName) {
+                        const genreElement = document.createElement("span");
+                        genreElement.textContent = genreName;
+                        genresContainer.appendChild(genreElement);
+                    }
+                });
+                carouselInner1.appendChild(movie);
+                movie.appendChild(divDescription);
+                divDescription.appendChild(title);
+                divDescription.appendChild(genresContainer);
+            }
       }
     } catch (error) {
       console.error('Une erreur s\'est produite', error);
@@ -54,7 +81,7 @@ async function fetchDataMovie() {
   
   fetchDataMovie();
 
-// __________________________ Carouselle _________________________
+// __________________________ Carousel _________________________
 
 const movieWidth = 27;
 const maxTranslateX = -400;
@@ -71,5 +98,19 @@ prevBtn.addEventListener("click", () => {
     if (translateX < 0) {
         translateX += movieWidth;
         carouselInner.style.transform = `translateX(${translateX}vw)`;
+    }
+});
+
+nextBtn1.addEventListener("click", () => {
+    if (translateX > maxTranslateX) {
+        translateX -= movieWidth;
+        carouselInner1.style.transform = `translateX(${translateX}vw)`;
+    }
+});
+
+prevBtn1.addEventListener("click", () => {
+    if (translateX < 0) {
+        translateX += movieWidth;
+        carouselInner1.style.transform = `translateX(${translateX}vw)`;
     }
 });
