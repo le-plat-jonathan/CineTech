@@ -12,20 +12,25 @@
 
 .caroussel-item-movie,
 .caroussel-item-serie {
+    border-radius: 0.5rem;
     flex: 0 0 auto;
-    width: 30%;
-    height: 15rem;
+    width: 25%;
+    height: 11rem;
     margin-right: 1rem;
     scroll-snap-align: start;
     background-size: cover;
     background-position: center;
     position: relative;
     box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
+    transition: .5s;
 }
 
 .caroussel-item-movie:hover,
 .caroussel-item-serie:hover {
+    transform: scale(150%);
+    transition: .5s;
     cursor: pointer;
+    z-index: 997;
 }
 
 .caroussel-movie-nav-btn,
@@ -67,6 +72,46 @@ main {
     padding: 2rem;
 }
 
+.overlay {
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 998;
+}
+
+.caroussel-item-movie:hover .overlay,
+.caroussel-item-serie:hover .overlay {
+    opacity: 1;
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    color: white;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.caroussel-item-movie:hover .movie-info,
+.caroussel-item-serie:hover .movie-info {
+    transition: .3s;
+    opacity: 1;
+}
+
+.caroussel-item-movie:hover .movieTitle,
+.caroussel-item-serie:hover .movieTitle {
+    transition: .3s;
+    display: none;
+}
+
 .movieTitle {
     color: white;
     font-weight: bold;
@@ -75,10 +120,12 @@ main {
     left: 5%;
 }
 
-.releaseDate {
+.genres {
     color: white;
-    font-weight: bold;
-    position: absolute;
-    bottom: 10%;
-    left: 7%;
+    font-size: 0.8rem; 
+}
+
+.expanded {
+    position: fixed;
+    z-index: 9999;
 }

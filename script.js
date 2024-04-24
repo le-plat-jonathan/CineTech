@@ -24,15 +24,62 @@ const fetchApiTv = async () => {
       const response = await fetch(apiTv);
       const data = await response.json();
       console.log(data);
-  } catch (error) {
-      console.error('Une erreur s\'est produite', error);
-  }
+      displayBtn();
+    } catch (error) {
+        console.error('Une erreur s\'est produite', error);
+    }
 };
 
+const myList = document.getElementById('myList');
+const guest_logOut = document.getElementById('guest_logOut');
 
+// --------------------------------------- Display Btn --------------------------------------- //
 
+function displayBtn() {
+  const token = localStorage.getItem('token');
+  if(token) {
+    myList.style.display = 'block';
+    guest_logOut.textContent = 'Déconnexion';
+  } else {
+    myList.style.display = 'none';
+    guest_logOut.textContent = 'Connexion';
+  }
+}
 
+displayBtn();
 
+// --------------------------------------- Log In--------------------------------------- //
 
-fetchApiMovie();
-fetchApiTv();
+guest_logOut.addEventListener('click', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    try {
+      const response = await fetch(apiGuestSession);
+      const data = await response.json();
+      console.log(data);
+      displayBtn();
+    } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+    }
+  }
+});
+
+  // --------------------------------------- Log Out --------------------------------------- //
+  
+  logOutBtn.addEventListener('click', function() {
+    localStorage.removeItem('token');
+    displayBtn();
+  })
+  
+  // --------------------------------------- Display Btn --------------------------------------- //
+  
+  function displayBtn() {
+    const token = localStorage.getItem('token');
+    if(token) {
+      guest.style.display = 'none';
+      logOutBtn.style.display = 'block';
+    } else {
+      guest.style.display = 'block';
+      logOutBtn.style.display = 'none';
+    }
+  }

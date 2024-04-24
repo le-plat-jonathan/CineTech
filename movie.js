@@ -54,7 +54,7 @@ async function fetchDataMovie() {
   
   fetchDataMovie();
 
-// __________________________ Carouselle _________________________
+// __________________________ Carousel _________________________
 
 const movieWidth = 27;
 const maxTranslateX = -400;
