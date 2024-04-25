@@ -21,7 +21,7 @@ function loadPopularMedia() {
       .then(response => response.json())
       .then(data => loadTrailers(data.results, 'tv'))
       .catch(error => console.error('Error fetching popular TV shows: ', error));
-}
+};
 
 let trailers = [];
 
@@ -41,7 +41,7 @@ async function loadTrailers(mediaItems, type) {
 
   await Promise.all(trailerPromises);
   displayRandomTrailer(); 
-}
+};
 
 function displayRandomTrailer() {
   if (trailers.length > 0) {
@@ -55,13 +55,13 @@ function displayRandomTrailer() {
   } else {
       console.log("No trailers available.");
   }
-}
+};
 
 window.onload = function() {
   loadPopularMedia();
 };
 
-// _________________________________________Fetch Carousel Infos_________________________________________
+// _________________________________________Fetch & Display Carousels Infos_________________________________________
 
 const fetchApiMovie = async () => {
   try {
@@ -79,13 +79,15 @@ const fetchApiMovie = async () => {
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`;
         carousselItem.innerHTML = `
         <h3 class="movieTitle">${movie.title}</h3>
-          <div class="overlay"></div>
-          <div class="movie-info">
-            <h3>${movie.title}</h3>
-            <p class="releaseDate">Date de sortie: ${movie.release_date}</p>
-            <p class="genres">${
-              movie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
-            }</p>
+          <div class="overlay">
+            <div class="movie-info">
+              <h3>${movie.title}</h3>
+              <p class="releaseDate">Date de sortie: ${movie.release_date}</p>
+              <p class="genres">${
+                movie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
+              }</p>
+              <a id='addFavBtn'>Like</a>
+            </div>
           </div>
         `;
         carousselContainer.appendChild(carousselItem);
@@ -114,9 +116,11 @@ const fetchApiSeries = async () => {
         carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${serie.backdrop_path})`;
         carousselItem.innerHTML = `
         <h2 class="movieTitle">${serie.name}</h2>
-        <div class="overlay"></div>
-        <div class="movie-info">
+        <div class="overlay">
+          <div class="movie-info">
+            <h2>${serie.name}</h2>
             <p class="releaseDate">Date de sorie: ${serie.first_air_date}</p>
+          </div>
         </div>
         `;
         carousselSeriesContainer.appendChild(carousselItem);
