@@ -23,39 +23,60 @@ nav{
 .carousel-inner1 {
   display: flex;
   transition: transform 0.5s ease;
-}
-  
-.movie {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    flex: 0 0 auto;
-    width: 25%;
-    height: 12rem;
-    margin-right: 1rem;
-    background-size: cover;
-    padding: 1rem;
-    font-family: "netflix";
-    box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
-    transition: all 0.3s;
+  height: 15rem;
 }
 
-.movie:hover{
-  top: 0%;
-  left: 0%;
-  width: 30%;
-  height: 15rem;
+.movie{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  flex: 0 0 auto;
+  width: 25%;
+  height: 12rem;
+  margin-right: 1rem;
+  background-size: cover;
+  padding: 1rem;
+  font-family: "netflix";
+  box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
   transition: all 0.3s;
 }
 
-.divDescription{
-    display: flex;
-    justify-content: end;
-    align-items: start;
-    flex-direction: column;
-    width: 100%;
-    height: 7rem;
-    color: white;
+.movie:hover{
+  width: 30%;
+  height: 15rem;
+  border: 0.1rem solid white;
+}
+  
+.img2 {
+  width: 100%;
+  height: 60%;
+  margin-right: 1rem;
+  background-size: cover;
+  padding: 1rem;
+  border: solid 0.1rem red;
+  font-family: "netflix";
+  box-shadow: -4px -114px 24px 0px rgba(0,0,0,0.47) inset;
+  transition: all 0.3s;
+}
+
+.img2:hover .divDescription {
+  display: flex;
+}
+
+.divDescription {
+  display: none;
+  position: absolute;
+  top: 60%;
+  padding: 1rem 0 1rem 1rem;
+  justify-content: end;
+  align-items: start;
+  flex-direction: column;
+  background-color: black;
+  width: 100%;
+  height: 40%;
+  color: white;
+  transition: all 0.3s;
 }
 
 .genres{
@@ -68,11 +89,9 @@ nav{
 
 .genres span{
     border-radius: 2rem;
-    border: red solid 0.1rem;
-    background-color: #000000;
     padding: 0.2rem;
     margin: 0.2rem;
-    font-size: 0.5rem;
+    font-size: 0.8rem;
 }
 
 h2{
@@ -105,10 +124,10 @@ h2{
     position: absolute;
     top: 79%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
     padding: 0.5rem;
+    font-size: 2rem;
     cursor: pointer;
   }
   
