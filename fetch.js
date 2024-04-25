@@ -3,7 +3,6 @@ const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey
 const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
 const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 const apiDeleteSession = 'https://api.themoviedb.org/3/authentication/session?api_key=' + apiKey;
-const apiToken = 'https://api.themoviedb.org/3/authentication/token/new' + apiKey;
 const apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
 
 const token = localStorage.getItem('token');

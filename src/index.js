@@ -6,6 +6,8 @@ const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_sessi
 
 const myList = document.getElementById('myList');
 const guest_logOut = document.getElementById('guest_logOut');
+const addFavMovie = document.getElementById('addFavMovie');
+const addFavSerie = document.getElementById('addFavSerie');
 
 // _________________________________________Hero banner background video_________________________________________
 
@@ -21,7 +23,7 @@ function loadPopularMedia() {
       .then(response => response.json())
       .then(data => loadTrailers(data.results, 'tv'))
       .catch(error => console.error('Error fetching popular TV shows: ', error));
-};
+}
 
 let trailers = [];
 
@@ -41,7 +43,7 @@ async function loadTrailers(mediaItems, type) {
 
   await Promise.all(trailerPromises);
   displayRandomTrailer(); 
-};
+}
 
 function displayRandomTrailer() {
   if (trailers.length > 0) {
@@ -55,13 +57,13 @@ function displayRandomTrailer() {
   } else {
       console.log("No trailers available.");
   }
-};
+}
 
 window.onload = function() {
   loadPopularMedia();
 };
 
-// _________________________________________Fetch & Display Carousels Infos_________________________________________
+// _________________________________________Fetch Carousel Infos_________________________________________
 
 const fetchApiMovie = async () => {
   try {
@@ -84,9 +86,9 @@ const fetchApiMovie = async () => {
               <h3>${movie.title}</h3>
               <p class="releaseDate">Date de sortie: ${movie.release_date}</p>
               <p class="genres">${
-                movie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
+                movie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(' · ')
               }</p>
-              <a id='addFavBtn'>Like</a>
+              <i id='addFavMovie' class="ri-add-circle-line"></i>
             </div>
           </div>
         `;
@@ -100,14 +102,30 @@ const fetchApiMovie = async () => {
   }
 };
 
+const fetchApiMovieGenre = async () => {
+  try {
+      const response = await fetch(apiMovieGenre);
+      const data = await response.json();
+      const genres = data.genres;
+            const genresMap = {};
+            genres.forEach(genre => {
+                genresMap[genre.id] = genre.name;
+            });
+        return genresMap;
+  } catch (error) {
+      console.error('Une erreur s\'est produite', error);
+  }
+};
+
 const fetchApiSeries = async () => {
   try {
     const response = await fetch(apiTv);
     const data = await response.json();
-    console.log(data);
+    
     if (data && data.results) {
       const series = data.results;
       const randomSeries = getRandom(series, 20);
+      const genresMap = await fetchApiSeriesGenre();
       const carousselSeriesContainer = document.getElementById('caroussel-container-series');
       
       randomSeries.forEach(serie => {
@@ -119,7 +137,11 @@ const fetchApiSeries = async () => {
         <div class="overlay">
           <div class="movie-info">
             <h2>${serie.name}</h2>
-            <p class="releaseDate">Date de sorie: ${serie.first_air_date}</p>
+            <p class="releaseDate">Date de sortie: ${serie.first_air_date}</p>
+            <p class="genres">${
+              serie.genre_ids.map(genreId => genresMap[genreId]).filter(genre => genre).join(', ')
+            }</p>
+            <i id='addFavSerie' class="ri-add-circle-line"></i>
           </div>
         </div>
         `;
@@ -132,6 +154,22 @@ const fetchApiSeries = async () => {
     console.error('Une erreur s\'est produite', error);
   }
 };
+
+const fetchApiSeriesGenre = async () => {
+  try {
+    const response = await fetch(apiMovieGenre);
+    const data = await response.json();
+    const genres = data.genres;
+    const genresMap = {};
+    genres.forEach(genre => {
+      genresMap[genre.id] = genre.name;
+    });
+    return genresMap;
+  } catch (error) {
+    console.error('Une erreur s\'est produite', error);
+  }
+};
+
 
 const getRandom = (arr, num) => {
   const result = [];
@@ -213,21 +251,6 @@ window.addEventListener('load', function(){
   }
 })
 
-const fetchApiMovieGenre = async () => {
-  try {
-      const response = await fetch(apiMovieGenre);
-      const data = await response.json();
-      const genres = data.genres;
-            const genresMap = {};
-            genres.forEach(genre => {
-                genresMap[genre.id] = genre.name;
-            });
-        return genresMap;
-  } catch (error) {
-      console.error('Une erreur s\'est produite', error);
-  }
-};
-
 // --------------------------------------- Display Btn --------------------------------------- //
 
 function displayBtn() {
@@ -243,7 +266,7 @@ function displayBtn() {
 
 displayBtn();
 
-// --------------------------------------- Log In & Out--------------------------------------- //
+// --------------------------------------- Log In & Out --------------------------------------- //
 
 guest_logOut.addEventListener('click', async () => {
   const token = localStorage.getItem('token');
@@ -262,4 +285,51 @@ guest_logOut.addEventListener('click', async () => {
     displayBtn();
   }
 });
+
+// --------------------------------------- AddFav functions --------------------------------------- //
+
+document.addEventListener('click', function(event) {
+  if (event.target && event.target.id === 'addFavMovie') {
+      const movieInfo = getMovieInfo(event.target);
+      addToFavorites(movieInfo);
+      event.target.className = "ri-checkbox-circle-line";
+  } else if (event.target && event.target.id === 'addFavSerie') {
+      const serieInfo = getSerieInfo(event.target);
+      addToFavorites(serieInfo);
+      event.target.className = "ri-checkbox-circle-line";
+  }
+});
+
+function getMovieInfo(target) {
+  const movieContainer = target.closest('.caroussel-item-movie');
+  const movieTitle = movieContainer.querySelector('.movieTitle').textContent;
+  const releaseDate = movieContainer.querySelector('.releaseDate').textContent;
+  const genres = movieContainer.querySelector('.genres').textContent;
+  return {
+      type: 'movie',
+      title: movieTitle,
+      releaseDate: releaseDate,
+      genres: genres
+  };
+}
+
+function getSerieInfo(target) {
+  const serieContainer = target.closest('.caroussel-item-serie');
+  const serieTitle = serieContainer.querySelector('.movieTitle').textContent;
+  const releaseDate = serieContainer.querySelector('.releaseDate').textContent;
+  const genres = serieContainer.querySelector('.genres').textContent;
+  return {
+      type: 'series',
+      title: serieTitle,
+      releaseDate: releaseDate,
+      genres: genres
+  };
+}
+
+function addToFavorites(item) {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites.push(item);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  // alert(`${item.type === 'movie' ? 'Film' : 'Série'} ajouté aux favoris !`);
+}
 
