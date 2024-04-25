@@ -3,7 +3,6 @@ const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey
 const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
 const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 const apiDeleteSession = 'https://api.themoviedb.org/3/authentication/session?api_key=' + apiKey;
-const apiToken = 'https://api.themoviedb.org/3/authentication/token/new?api_key=' + apiKey; // Corrected
 
 const token = localStorage.getItem('token');
 const logOutBtn = document.getElementById('logOut');
@@ -24,15 +23,7 @@ const fetchApiTv = async () => {
       const response = await fetch(apiTv);
       const data = await response.json();
       console.log(data);
-  } catch (error) {
-      console.error('Une erreur s\'est produite', error);
-  }
+    } catch (error) {
+        console.error('Une erreur s\'est produite', error);
+    }
 };
-
-
-
-
-
-
-fetchApiMovie();
-fetchApiTv();
