@@ -13,7 +13,7 @@ async function fetchDataMovie() {
         for (const movie of results) {
             const index = results.indexOf(movie);
             const id = movie.id;
-            const backdrop = movie.backdrop_path;
+            const backdropPath = movie.backdrop_path;
             const genreIds = movie.genre_ids;
             const originalLanguage = movie.original_language;
             const originalTitle = movie.original_title;
@@ -26,10 +26,10 @@ async function fetchDataMovie() {
 
             if(index > -1){
                 const movie = document.createElement("div");
-                const img2 = document.createElement("img");
+                const backdrop = document.createElement("div");
                 movie.className = "movie";
-                img2.className = "img2";
-                img2.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
+                backdrop.className = "backdrop";
+                backdrop.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdropPath}")`;
                 const divDescription = document.createElement("div");
                 divDescription.className = "divDescription";
                 const title = document.createElement("h4");
@@ -45,7 +45,7 @@ async function fetchDataMovie() {
                     }
                 });
                 carouselInner.appendChild(movie);
-                movie.appendChild(img2);
+                movie.appendChild(backdrop);
                 movie.appendChild(divDescription);
                 divDescription.appendChild(title);
                 divDescription.appendChild(genresContainer);
@@ -54,7 +54,7 @@ async function fetchDataMovie() {
             if(index > -1){
                 const movie = document.createElement("div");
                 movie.className = "movie";
-                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
+                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdropPath}")`;
                 const divDescription = document.createElement("div");
                 divDescription.className = "divDescription";
                 const title = document.createElement("h4");
