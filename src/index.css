@@ -1,3 +1,7 @@
+body {
+    user-select: none;
+}
+
 /* -------------------------------- Carousels --------------------------------  */
 
 #caroussel-container-movie,
@@ -48,11 +52,13 @@
 #movie-prev, #series-prev {
     left: 1rem;
     color: white;
+    font-size: 3rem;
 }
 
 #movie-next, #series-next {
     right: 1rem;
     color: white;
+    font-size: 3rem;
 }
 
 #navbarScroll {

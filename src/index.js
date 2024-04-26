@@ -72,7 +72,7 @@ const fetchApiMovie = async () => {
     
     if (data && data.results) {
       const movies = data.results;
-      const genresMap = await fetchApiMovieGenre();
+      const genresMap = await fetchApiGenre();
       const carousselContainer = document.getElementById('caroussel-container-movie');
       
       movies.forEach(movie => {
@@ -102,21 +102,6 @@ const fetchApiMovie = async () => {
   }
 };
 
-const fetchApiMovieGenre = async () => {
-  try {
-      const response = await fetch(apiMovieGenre);
-      const data = await response.json();
-      const genres = data.genres;
-            const genresMap = {};
-            genres.forEach(genre => {
-                genresMap[genre.id] = genre.name;
-            });
-        return genresMap;
-  } catch (error) {
-      console.error('Une erreur s\'est produite', error);
-  }
-};
-
 const fetchApiSeries = async () => {
   try {
     const response = await fetch(apiTv);
@@ -125,7 +110,7 @@ const fetchApiSeries = async () => {
     if (data && data.results) {
       const series = data.results;
       const randomSeries = getRandom(series, 20);
-      const genresMap = await fetchApiSeriesGenre();
+      const genresMap = await fetchApiGenre();
       const carousselSeriesContainer = document.getElementById('caroussel-container-series');
       
       randomSeries.forEach(serie => {
@@ -155,21 +140,20 @@ const fetchApiSeries = async () => {
   }
 };
 
-const fetchApiSeriesGenre = async () => {
+const fetchApiGenre = async () => {
   try {
     const response = await fetch(apiMovieGenre);
     const data = await response.json();
     const genres = data.genres;
     const genresMap = {};
-    genres.forEach(genre => {
-      genresMap[genre.id] = genre.name;
-    });
+      genres.forEach(genre => {
+        genresMap[genre.id] = genre.name;
+      });
     return genresMap;
   } catch (error) {
     console.error('Une erreur s\'est produite', error);
   }
 };
-
 
 const getRandom = (arr, num) => {
   const result = [];
@@ -249,7 +233,7 @@ window.addEventListener('load', function(){
   } else {
       navbar.classList.add('bg-black');
   }
-})
+});
 
 // --------------------------------------- Display Btn --------------------------------------- //
 
@@ -330,6 +314,5 @@ function addToFavorites(item) {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   favorites.push(item);
   localStorage.setItem('favorites', JSON.stringify(favorites));
-  // alert(`${item.type === 'movie' ? 'Film' : 'Série'} ajouté aux favoris !`);
 }
 
