@@ -272,17 +272,50 @@ guest_logOut.addEventListener('click', async () => {
 
 // --------------------------------------- AddFav functions --------------------------------------- //
 
+function updateFavoriteClass() {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites.forEach(fav => {
+        const elements = document.querySelectorAll(`.caroussel-item-${fav.type}`);
+        elements.forEach(element => {
+            const titleElement = element.querySelector('.movieTitle');
+            if (titleElement && titleElement.textContent === fav.title) {
+                const targetElement = element.querySelector('.ri-add-circle-line');
+                if (targetElement) {
+                    targetElement.className = "ri-checkbox-circle-line";
+                }
+            }
+        });
+    });
+}
+
+async function awaitFetchBeforeUpdating() {
+  await fetchApiMovie();
+  await fetchApiSeries();
+  updateFavoriteClass();
+}
+awaitFetchBeforeUpdating();
+
 document.addEventListener('click', function(event) {
-  if (event.target && event.target.id === 'addFavMovie') {
-      const movieInfo = getMovieInfo(event.target);
-      addToFavorites(movieInfo);
-      event.target.className = "ri-checkbox-circle-line";
-  } else if (event.target && event.target.id === 'addFavSerie') {
-      const serieInfo = getSerieInfo(event.target);
-      addToFavorites(serieInfo);
-      event.target.className = "ri-checkbox-circle-line";
+  if (event.target && (event.target.id === 'addFavMovie' || event.target.id === 'addFavSerie')) {
+      const isMovie = event.target.id === 'addFavMovie';
+      const itemInfo = isMovie ? getMovieInfo(event.target) : getSerieInfo(event.target);
+      toggleFavorite(itemInfo, isMovie, event.target);
   }
 });
+
+function toggleFavorite(item, isMovie, targetElement) {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const index = favorites.findIndex(fav => (isMovie ? fav.title === item.title : fav.name === item.name));
+
+  if (index !== -1) {
+    favorites.splice(index, 1);
+    targetElement.className = "ri-add-circle-line";
+  } else {
+    favorites.push(item);
+    targetElement.className = "ri-checkbox-circle-line";
+  }
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}
 
 function getMovieInfo(target) {
   const movieContainer = target.closest('.caroussel-item-movie');
@@ -309,10 +342,3 @@ function getSerieInfo(target) {
       genres: genres
   };
 }
-
-function addToFavorites(item) {
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  favorites.push(item);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-}
-

@@ -1,3 +1,7 @@
+* {
+    scroll-behavior: smooth;
+}
+
 body {
     user-select: none;
 }
@@ -6,6 +10,7 @@ body {
 
 #caroussel-container-movie,
 #caroussel-container-series {
+    height: 42vh;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -40,7 +45,7 @@ body {
     transform: scale(150%);
     transition: .5s;
     cursor: pointer;
-    z-index: 997;
+    z-index: 5;
 }
 
 .caroussel-movie-nav-btn,
@@ -69,17 +74,32 @@ body {
     transition: background-color .7s ease;
 }
 
+.serie {
+    position: absolute;
+    top: 145%;
+    left: 5.5%;
+    margin-bottom: 1rem;
+    z-index: 10;
+    text-decoration: underline;
+    font-weight: bold;
+    color: white;
+}
+
 .film {
     position: absolute;
     left: 5.5%;
     margin-bottom: 1rem;
-    z-index: 500;
+    z-index: 10;
     text-decoration: underline;
     font-weight: bold;
     color: white;
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: 100vh;
     background: black;
     padding: 2rem;
 }
@@ -97,7 +117,7 @@ main {
     backdrop-filter: blur(1px);
     opacity: 0;
     transition: opacity 0.5s;
-    z-index: 998;
+    z-index: 11;
 }
 
 .caroussel-item-movie:hover .overlay,
@@ -112,7 +132,7 @@ main {
     align-items: center;
     padding-top: 4rem;
     color: white;
-    z-index: 999;
+    z-index: 12;
     opacity: 0;
     transition: opacity 0.5s;
 }
@@ -142,11 +162,12 @@ main {
     font-size: 0.8rem; 
 }
 
-.expanded {
-    position: fixed;
-    z-index: 9999;
+.ri-add-circle-line,
+.ri-checkbox-circle-line {
+    font-size: 1.5rem;
 }
 
+/* -------------------------------- go top Button --------------------------------  */
 
 .go-top {
     background-color: #e50914;
@@ -162,10 +183,6 @@ main {
     align-items: center; 
     justify-content: center; 
     width: 3%;
-    height: 5%;
-    
-  }
-
-
-
-
+    height: 6%;
+    z-index: 15;
+}
