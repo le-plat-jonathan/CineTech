@@ -142,3 +142,30 @@ main {
     font-size: 0.8rem; 
 }
 
+.expanded {
+    position: fixed;
+    z-index: 9999;
+}
+
+
+.go-top {
+    background-color: #e50914;
+    color: white; 
+    padding: 10px; 
+    border-radius: 50%; 
+    border: none; 
+    cursor: pointer; 
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 3%;
+    height: 5%;
+    
+  }
+
+
+
+

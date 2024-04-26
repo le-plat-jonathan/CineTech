@@ -45,5 +45,23 @@ const fetchApiMovieGenre = async () => {
   }
 };
 
+
+const fetchApiTvGenre = async () => {
+    try {
+        const response = await fetch(apiTvGenre);
+        const data = await response.json();
+        const genres = data.genres;
+              const genresMap = {};
+              genres.forEach(genre => {
+                  genresMap[genre.id] = genre.name;
+              });
+          return genresMap;
+    } catch (error) {
+        console.error('Une erreur s\'est produite', error);
+    }
+  };
+
+
+
 fetchApiMovie();
 fetchApiTv();
