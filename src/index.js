@@ -272,40 +272,42 @@ guest_logOut.addEventListener('click', async () => {
 
 // --------------------------------------- AddFav functions --------------------------------------- //
 
-function updateFavoriteClass() {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites.forEach(fav => {
-        const elements = document.querySelectorAll(`.caroussel-item-${fav.type}`);
-        elements.forEach(element => {
-            const titleElement = element.querySelector('.movieTitle');
-            if (titleElement && titleElement.textContent === fav.title) {
-                const targetElement = element.querySelector('.ri-add-circle-line');
-                if (targetElement) {
-                    targetElement.className = "ri-checkbox-circle-line";
-                }
-            }
-        });
-    });
-}
+document.addEventListener('DOMContentLoaded', function() {
 
-async function awaitFetchBeforeUpdating() {
-  await fetchApiMovie();
-  await fetchApiSeries();
-  updateFavoriteClass();
-}
-awaitFetchBeforeUpdating();
+  function updateFavoriteClass() {
+      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      favorites.forEach(fav => {
+          const elements = document.querySelectorAll(`.caroussel-item-${fav.type}`);
+          elements.forEach(element => {
+              const titleElement = element.querySelector('.movieTitle');
+              if (titleElement && titleElement.textContent === fav.title) {
+                  const targetElement = element.querySelector('.ri-add-circle-line');
+                  if (targetElement) {
+                      targetElement.className = "ri-checkbox-circle-line";
+                  }
+              }
+          });
+      });
+  }
+  async function awaitFetchBeforeUpdating() {
+    await fetchApiMovie();
+    await fetchApiSeries();
+    updateFavoriteClass();
+  }
+  awaitFetchBeforeUpdating();
+});
 
 document.addEventListener('click', function(event) {
   if (event.target && (event.target.id === 'addFavMovie' || event.target.id === 'addFavSerie')) {
       const isMovie = event.target.id === 'addFavMovie';
-      const itemInfo = isMovie ? getMovieInfo(event.target) : getSerieInfo(event.target);
+      const itemInfo = isMovie ? getMovieInfo(event.target) : getSeriesInfo(event.target);
       toggleFavorite(itemInfo, isMovie, event.target);
   }
 });
 
 function toggleFavorite(item, isMovie, targetElement) {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  const index = favorites.findIndex(fav => (isMovie ? fav.title === item.title : fav.name === item.name));
+  const index = favorites.findIndex(fav => (isMovie ? fav.title === item.title : fav.title === item.title));
 
   if (index !== -1) {
     favorites.splice(index, 1);
@@ -316,6 +318,7 @@ function toggleFavorite(item, isMovie, targetElement) {
   }
   localStorage.setItem('favorites', JSON.stringify(favorites));
 }
+
 
 function getMovieInfo(target) {
   const movieContainer = target.closest('.caroussel-item-movie');
@@ -330,7 +333,7 @@ function getMovieInfo(target) {
   };
 }
 
-function getSerieInfo(target) {
+function getSeriesInfo(target) {
   const serieContainer = target.closest('.caroussel-item-serie');
   const serieTitle = serieContainer.querySelector('.movieTitle').textContent;
   const releaseDate = serieContainer.querySelector('.releaseDate').textContent;
