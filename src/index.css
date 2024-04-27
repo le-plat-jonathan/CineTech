@@ -9,7 +9,8 @@ body {
 /* -------------------------------- Carousels --------------------------------  */
 
 #caroussel-container-movie,
-#caroussel-container-series {
+#caroussel-container-series,
+#caroussel-container-favorite {
     height: 42vh;
     display: flex;
     align-items: center;
@@ -26,7 +27,8 @@ body {
 }
 
 .caroussel-item-movie,
-.caroussel-item-serie {
+.caroussel-item-serie,
+.caroussel-item-favorite {
     border-radius: 0.5rem;
     flex: 0 0 auto;
     width: 25%;
@@ -41,7 +43,8 @@ body {
 }
 
 .caroussel-item-movie:hover,
-.caroussel-item-serie:hover {
+.caroussel-item-serie:hover,
+.caroussel-item-favorite:hover {
     transform: scale(150%);
     transition: .5s;
     cursor: pointer;
@@ -121,7 +124,8 @@ main {
 }
 
 .caroussel-item-movie:hover .overlay,
-.caroussel-item-serie:hover .overlay {
+.caroussel-item-serie:hover .overlay,
+.caroussel-item-favorite:hover .overlay {
     opacity: 1;
 }
 
@@ -138,13 +142,15 @@ main {
 }
 
 .caroussel-item-movie:hover .movie-info,
-.caroussel-item-serie:hover .movie-info {
+.caroussel-item-serie:hover .movie-info,
+.caroussel-item-favorite:hover .movie-info {
     transition: .3s;
     opacity: 1;
 }
 
 .caroussel-item-movie:hover .movieTitle,
-.caroussel-item-serie:hover .movieTitle {
+.caroussel-item-serie:hover .movieTitle,
+.caroussel-item-favorite:hover .movieTitle {
     transition: .3s;
     display: none;
 }

@@ -140,6 +140,41 @@ const fetchApiSeries = async () => {
   }
 };
 
+const displayFavoriteItems = () => {
+  try {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const carousselFavoriteContainer = document.getElementById('caroussel-container-favorite');
+    carousselFavoriteContainer.innerHTML = '';
+
+    favorites.forEach(item => {
+      const carousselItem = document.createElement('div');
+      carousselItem.classList.add('caroussel-item-favorite');
+      carousselItem.style.backgroundImage = `${item.backdropPath}`;
+      const content = `
+        <h3 class="movieTitle">${item.title}</h3>
+        <div class="overlay">
+          <div class="movie-info">
+            <h3>${item.title}</h3>
+            <p class="releaseDate">Date de sortie: ${item.releaseDate}</p>
+            <p class="genres">${item.genres}</p>
+            <i class="ri-checkbox-circle-line"></i> <!-- Toujours afficher l'icône de favori -->
+          </div>
+        </div>
+      `;
+      carousselItem.innerHTML = content;
+
+      carousselFavoriteContainer.appendChild(carousselItem);
+    });
+
+  } catch (error) {
+    console.error('Une erreur s\'est produite lors de l\'affichage des éléments favoris', error);
+  }
+};
+
+window.addEventListener('load', displayFavoriteItems);
+
+
 const fetchApiGenre = async () => {
   try {
     const response = await fetch(apiMovieGenre);
@@ -325,11 +360,14 @@ function getMovieInfo(target) {
   const movieTitle = movieContainer.querySelector('.movieTitle').textContent;
   const releaseDate = movieContainer.querySelector('.releaseDate').textContent;
   const genres = movieContainer.querySelector('.genres').textContent;
+  const backdropPath = movieContainer.style.backgroundImage.replace('url("', '').replace('")', '');
+
   return {
       type: 'movie',
       title: movieTitle,
       releaseDate: releaseDate,
-      genres: genres
+      genres: genres,
+      backdropPath: backdropPath
   };
 }
 
@@ -338,10 +376,13 @@ function getSeriesInfo(target) {
   const serieTitle = serieContainer.querySelector('.movieTitle').textContent;
   const releaseDate = serieContainer.querySelector('.releaseDate').textContent;
   const genres = serieContainer.querySelector('.genres').textContent;
+  const backdropPath = serieContainer.style.backgroundImage.replace('url("', '').replace('")', '');
+
   return {
       type: 'series',
       title: serieTitle,
       releaseDate: releaseDate,
-      genres: genres
+      genres: genres,
+      backdropPath: backdropPath
   };
 }
