@@ -192,3 +192,8 @@ main {
     height: 6%;
     z-index: 15;
 }
+
+.backgroundHero {
+    background-image: url('../Assets/Images/netflix-hero-1.jpeg');
+    
+}

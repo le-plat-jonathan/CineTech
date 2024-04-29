@@ -8,8 +8,8 @@
     <link href="output.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
     <script src="index.js" defer></script>
-    <script src="/script.js" defer></script>
     <script src="/fetch.js" defer></script>
+    <script src="/script.js" defer></script>
 
 </head>
 <body id="top">
@@ -69,10 +69,7 @@
     </div>
   </nav>
   <section class="relative bg-black h-screen">
-    <div class="video-container absolute inset-0 object-cover w-full h-full">
-        <video id="hero-video" class="absolute inset-0 object-cover w-full h-full" muted loop></video>
-    </div>
-    <div class="relative z-10 h-full">
+    <div class="relative z-10 h-full backgroundHero">
       <div class="flex items-center h-full pl-8 lg:pl-16">
         <h1 class="md:text-5xl xl:text-6xl font-bold">
           <span class="text-xl md:text-3xl text-[#E50914]">CinéTech</span> <br/>
@@ -82,13 +79,13 @@
       </div>              
     </div>
   </section>
-<main>
-  <h2 class="film">Mes favoris <i class="ri-arrow-right-line"></i></h2>
-  <div id="caroussel-container-favorite">
-    <button id="movie-prev" class="caroussel-movie-nav-btn"><</button>
-    <button id="movie-next" class="caroussel-movie-nav-btn">></button>
-  </div>
-</main>
+  <main>
+    <h2 class="film">Mes favoris <i class="ri-arrow-right-line"></i></h2>
+    <div id="caroussel-container-favorite" class="caroussel-container">
+      <button id="movie-prev" class="caroussel-movie-nav-btn"><</button>
+      <button id="movie-next" class="caroussel-movie-nav-btn">></button>
+    </div>
+  </main>
 <footer class="p-4 bg-black md:p-8 lg:p-10 dark:bg-gray-800 border-4 border-transparent border-t-red-600">
   <div class="mx-auto max-w-screen-xl text-center">
       <a href="#" class="flex justify-center items-center text-2xl font-semibold text-white dark:text-white">

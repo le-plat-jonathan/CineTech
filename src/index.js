@@ -1,13 +1,14 @@
-const apiKey = '8c4b867188ee47a1d4e40854b27391ec';
-const apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey;
-const apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
-const apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
-const apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
+let apiKey = '8c4b867188ee47a1d4e40854b27391ec';
+let apiMovie = 'https://api.themoviedb.org/3/discover/movie?api_key=' + apiKey;
+let apiTv = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey;
+let apiMovieGenre = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + apiKey
+let apiGuestSession = 'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=' + apiKey;
 
 const myList = document.getElementById('myList');
 const guest_logOut = document.getElementById('guest_logOut');
 const addFavMovie = document.getElementById('addFavMovie');
 const addFavSerie = document.getElementById('addFavSerie');
+const removeFav = document.getElementById('removeFav');
 
 // _________________________________________Hero banner background video_________________________________________
 
@@ -150,7 +151,7 @@ const displayFavoriteItems = () => {
     favorites.forEach(item => {
       const carousselItem = document.createElement('div');
       carousselItem.classList.add('caroussel-item-favorite');
-      carousselItem.style.backgroundImage = `${item.backdropPath}`;
+      carousselItem.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${item.backdropPath})`;
       const content = `
         <h3 class="movieTitle">${item.title}</h3>
         <div class="overlay">
@@ -158,7 +159,7 @@ const displayFavoriteItems = () => {
             <h3>${item.title}</h3>
             <p class="releaseDate">Date de sortie: ${item.releaseDate}</p>
             <p class="genres">${item.genres}</p>
-            <i class="ri-checkbox-circle-line"></i> <!-- Toujours afficher l'icône de favori -->
+            <i id='removeFav' class="ri-checkbox-circle-line"></i>
           </div>
         </div>
       `;
@@ -339,6 +340,30 @@ document.addEventListener('click', function(event) {
       toggleFavorite(itemInfo, isMovie, event.target);
   }
 });
+
+document.addEventListener('click', function(event) {
+  if (event.target && (event.target.id === 'removeFav')) {
+    removeFavoriteItem(event.target);
+  }
+});
+
+function removeFavoriteItem(targetElement) {
+  try {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    
+    const itemTitle = targetElement.closest('.caroussel-item-favorite').querySelector('.movieTitle').textContent;
+    const index = favorites.findIndex(fav => fav.title === itemTitle);
+    
+    if (index !== -1) {
+      favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      displayFavoriteItems();
+    } 
+  } catch (error) {
+    console.error('Une erreur s\'est produite lors de la suppression de l\'élément favori', error);
+  }
+}
+
 
 function toggleFavorite(item, isMovie, targetElement) {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
