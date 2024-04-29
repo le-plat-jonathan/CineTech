@@ -13,7 +13,7 @@ async function fetchDataMovie() {
         for (const movie of results) {
             const index = results.indexOf(movie);
             const id = movie.id;
-            const backdropPath = movie.backdrop_path;
+            const backdrop = movie.backdrop_path;
             const genreIds = movie.genre_ids;
             const originalLanguage = movie.original_language;
             const originalTitle = movie.original_title;
@@ -23,15 +23,23 @@ async function fetchDataMovie() {
             const releaseDate = movie.release_date;
             const voteAverage = movie.vote_average;
             const voteCount = movie.vote_count;
+            console.log(index);
+            console.log(genreIds);
 
             if(index > -1){
                 const movie = document.createElement("div");
-                const backdrop = document.createElement("div");
                 movie.className = "movie";
-                backdrop.className = "backdrop";
-                backdrop.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdropPath}")`;
+                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
                 const divDescription = document.createElement("div");
                 divDescription.className = "divDescription";
+                const iconWrapper = document.createElement("div");
+                iconWrapper.className = "iconWrapper";
+                const iconOne = document.createElement("img");
+                iconOne.src = 'assets/images/jouer.png';
+                iconOne.className = "iconOne";
+                const iconTwo = document.createElement("img");
+                iconTwo.src = 'assets/images/commentaire.png';
+                iconTwo.className = "iconTwo";
                 const title = document.createElement("h4");
                 title.textContent = originalTitle;
                 const genresContainer = document.createElement("div");
@@ -45,16 +53,18 @@ async function fetchDataMovie() {
                     }
                 });
                 carouselInner.appendChild(movie);
-                movie.appendChild(backdrop);
                 movie.appendChild(divDescription);
+                divDescription.appendChild(iconWrapper);
+                iconWrapper.appendChild(iconOne);
+                iconWrapper.appendChild(iconTwo);
                 divDescription.appendChild(title);
                 divDescription.appendChild(genresContainer);
             }
 
-            if(index > -1){
+                        if(index > -1){
                 const movie = document.createElement("div");
                 movie.className = "movie";
-                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdropPath}")`;
+                movie.style.backgroundImage = `url("https://image.tmdb.org/t/p/w500${backdrop}")`;
                 const divDescription = document.createElement("div");
                 divDescription.className = "divDescription";
                 const title = document.createElement("h4");
@@ -63,8 +73,6 @@ async function fetchDataMovie() {
                 genresContainer.className = "genres";
                 genreIds.forEach(genreId => {
                     const genreName = genresMap[genreId];
-                    // const genreNameTables = array.from(genreName);
-                    // console.log(genreNameTables);
                     if (genreName) {
                         const genreElement = document.createElement("span");
                         genreElement.textContent = genreName;
@@ -117,3 +125,9 @@ prevBtn1.addEventListener("click", () => {
         carouselInner1.style.transform = `translateX(${translateX}vw)`;
     }
 });
+
+document.addEventListener('click', function(event) {
+    if (event.target && (event.target.className === 'iconOne')) {
+        window.location.href = "detail.html"
+    }
+  });

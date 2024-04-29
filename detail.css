@@ -1,0 +1,31 @@
+.detailsFilm{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100vw;
+    background-color: black;
+    font-family: "netflix";
+}
+
+.detailDescription{
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    flex-direction: column;
+    color: white;
+}
+
+.divPosterPath{
+    height: 35rem;
+    width: 20rem;
+    margin: 10rem 5rem 0 3rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.5rem;
+}
+
+.detailDescription{
+    height: 50%;
+    width: 50%;
+    margin: 11rem 5rem 0 3rem;
+}
