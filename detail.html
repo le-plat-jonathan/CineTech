@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineTech</title>
+    <title>Document</title>
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="movie.css">
-    <link href="src/index.css" rel="stylesheet" >
     <link href="src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="detail.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
     <script src="fetch.js" defer></script>
-    <script src="src/index.js" defer></script>
-    <script src="script.js" defer></script>
-    <script src="movie.js" defer></script>
+    <script src="detail.js" defer></script>
 </head>
 <body>
     <nav id="navbarScroll" class="fixed w-full z-20 top-0 start-0 bg-black">
@@ -68,35 +64,11 @@
           </div>
         </div>
       </nav>
-      <section class="relative bg-black h-screen">
-        <div class="video-container absolute inset-0 object-cover w-full h-full">
-            <video id="hero-video" class="absolute inset-0 object-cover w-full h-full" muted loop></video>
+      <section class="detailsFilm">
+        <div class="divPosterPath">
         </div>
-        <div class="relative z-10 h-full">
-          <div class="flex items-center h-full pl-8 lg:pl-16">
-            <h1 class="md:text-5xl xl:text-6xl font-bold">
-              <span class="text-xl md:text-3xl text-[#E50914]">CinéTech</span> <br/>
-              <span class="text-3xl md:text-5xl xl:text-6xl text-white">Tous vos</span> <br/>
-              <span class="text-3xl md:text-5xl xl:text-6xl text-[#E50914]">Films & Séries !</span>
-            </h1>
-          </div>              
+        <div class="detailDescription">
         </div>
       </section>
-
-    <main>
-        <div class="carousel">
-            <h2>Tout les Films</h2>
-            <div class="carousel-inner"></div>
-            <button class="prev-btn">&lt;</button>
-            <button class="next-btn">&gt;</button>
-            <h2>Film science fiction</h2>
-            <div class="carousel-inner1"></div>
-            <button class="prev-btn1">&lt;</button>
-            <button class="next-btn1">&gt;</button>
-        </div>
-    </main>
-    <footer>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique aspernatur minima saepe, assumenda sed dolor placeat, facilis quam labore rerum non, expedita officiis distinctio reiciendis sunt sit voluptates nemo nihil?</p>
-    </footer>
 </body>
 </html>
